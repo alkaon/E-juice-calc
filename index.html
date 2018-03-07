@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <link rel="stylesheet" href="style/style.css" />
+</head>
+<body>
+<div id="app">
+<h1> {{ recipe_all_aromas_percent }} </h1>
+
+<div id="base">
+  <h1>Основа</h1>
+  <p>Крепость никотина<input type="number" id="base_strong" v-model.number="base_strong"><i>mg/ml</i></p>
+  <p>Соотношение пропиленгликоля и глицерина<input type="text" id="base_vg" v-model.number="base_vg"><i>VG %</i><input type="text" id="base_pg" v-model.number="base_pg"><i>PG %</i></p>
+  <p>Количество капель в 1 мл <input type="text" id="drops_ml" v-model.number="drops_ml"></p>
+  <hr>
+</div>
+<div id="target">
+  <h1>Цель</h1>
+  <p>Желаемое количество жидкости <input type="number" id="target_scope" v-model.number="target_scope"><i>ml</i></p>
+  <p>Желаемая крепость <input type="text" id="target_strong" v-model.number="target_strong"><i>mg/ml</i></p>
+  <p>Желаемое соотношение пропиленгликоля и глицерина<input type="text" id="target_vg" v-model.number="target_vg"><i>VG %</i><input type="text" id="target_pg" v-model.number="target_pg"><i>PG %</i></p>
+  <hr> 
+</div>
+<div id="aromas">
+  <h1>Ароматизаторы</h1>
+  <ul v-show="true"><li v-for="(aroma,index) in aromas">
+    <button id="delete_aroma" @click="aromas.splice(index,1)">X</button>{{ aroma.name }} ( {{ aroma.manufacture }} ) {{ aroma.percent }} %
+  </li></ul>
+  <p><button id="add_aroma" @click="add_aroma">+</button><input type="text" id="aroma_name_add" v-model="aroma_name_add" placeholder="Название Аромы"><input type="text" id="aroma_manufacture_add" v-model="aroma_manufacture_add" placeholder="Производитель"><input type="number" id="aroma_percent_add" v-model.number="aroma_percent_add">%<input type="number" id="aroma_pg_add" v-model.number="aroma_pg_add">PG %</p>
+  <hr>
+</div>
+<div id="recipe">
+<h1>Рецепт</h1>
+  <p><button id="get_recipe" @click="get_recipe">рецепт</button></p>
+  <table v-show="true">
+    <th>Название</th>
+	<th>%</th>
+	<th>мл</th>
+	<th>Капли</th>
+	<th>Грамм</th>
+	<tr><td>Основа</td><td>{{ recipe_base_perc }}</td><td>{{ recipe_base_ml }}</td><td>{{ recipe_base_drops }}</td><td>{{ recipe_base_gr }}</td></tr>
+	<tr><td>Глицерин</td><td>{{ recipe_vg_perc }}</td><td>{{ recipe_vg_ml }}</td><td>{{ recipe_vg_drops }}</td><td>{{ recipe_vg_gr }}</td></tr>
+	<tr><td>Пропиленгликоль</td><td>{{ recipe_pg_perc }}</td><td>{{ recipe_pg_ml }}</td><td>{{ recipe_pg_drops }}</td><td>{{ recipe_pg_gr }}</td></tr>
+	<tr v-for="aroma in aromas"><td>{{ aroma.name }}({{ aroma.manufacture }})</td><td>{{ aroma.percent }}</td><td>{{ aroma.ml }}</td><td>{{ aroma.drops }}</td><td>{{ aroma.gramm }}</td></tr>
+	<tr><td><b>Результат</b></td><td>{{ recipe_all_perc }}</td><td>{{ recipe_all_ml }}</td><td>{{ recipe_all_drops }}</td><td>{{ recipe_all_gr }}</td></tr>
+	
+  </table>
+</div>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script src="script/script.js"></script>
+</body>
+</html>
